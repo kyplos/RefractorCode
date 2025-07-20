@@ -12,6 +12,7 @@ int choice;
 int row, column;
 char turn = 'X';
 bool draw = false;
+
 After: Everything organized inside a TicTacToe class
 
 class TicTacToe {
@@ -22,6 +23,7 @@ private:
     bool isDraw;
     // etc...
 };
+
 2. Fixed Input Validation
 Before: Game crashed on bad input
 
@@ -33,6 +35,7 @@ while (!(std::cin >> choice) || choice < 1 || choice > 9) {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
+
 3. Fixed Backwards Game Logic
 Before: gameover() returned true when game should continue
 
@@ -42,6 +45,7 @@ bool gameover(){
         if(board[i][0]==board[i][1] && board[i][0]==board[i][2])
             return false; // This is backwards!
 }
+
 After: Clear, logical functions
 
 bool checkWin() const {
@@ -50,6 +54,7 @@ bool checkWin() const {
 bool isBoardFull() const {
     // Returns true if board is actually full
 }
+
 4. Eliminated Dangerous Recursion
 Before: Used recursion for error handling (could crash)
 
@@ -62,6 +67,7 @@ void player_turn(){
         player_turn(); // Dangerous recursion!
     }
 }
+
 After: Safe loop-based error handling
 
 while (!gameEnded) {
@@ -70,6 +76,7 @@ while (!gameEnded) {
         continue; // Just try again, no recursion
     }
 }
+
 5. Replaced Magic Numbers
 Before: Random numbers everywhere
 
@@ -80,6 +87,7 @@ After: Named constants
 static const int BOARD_SIZE = 3;
 for (int i = 0; i < BOARD_SIZE; ++i)
     for (int j = 0; j < BOARD_SIZE; ++j)
+    
 6. Improved Function Names
 Before: Confusing names
 
@@ -93,6 +101,7 @@ bool isBoardFull() // Checks if board is full
 void makeMove() // Makes a move
 void displayBoard() // Displays the board
 void switchPlayer() // Switches players
+
 7. Fixed Redundant Function Calls
 Before: Called same function twice
 
@@ -108,6 +117,7 @@ while (!gameEnded) {
     // ... get move ...
     checkGameStatus(); // Called once after move
 }
+
 8. Better Code Organization
 Before: Giant switch statement
 
@@ -123,6 +133,7 @@ void getCoordinates(int choice, int& row, int& col) const {
     row = (choice - 1) / BOARD_SIZE;
     col = (choice - 1) % BOARD_SIZE;
 }
+
 9. Added Modern C++ Features
 Before: Old C-style code
 
@@ -132,6 +143,7 @@ After: Modern C++ practices
 
 std::vector<std::vector<char>> board; // Safe containers
 // No namespace pollution
+
 10. Enhanced User Experience
 Before: Basic, confusing output
 
@@ -143,4 +155,5 @@ std::cout << "Player 1 [X], enter your move (1-9): ";
 std::cout << "That position is already taken! Choose another.\n";
 std::cout << "Would you like to play again? (y/n): ";
 Major Additions
+
 11. Added and option to play against a Ai or another human
